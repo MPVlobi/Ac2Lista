@@ -1,4 +1,4 @@
- private static void ManipularLista() {
+private static void ManipularLista() {
         ListaEncadeada lista = new ListaEncadeada();
         int opcao;
 
@@ -12,12 +12,35 @@
 
             switch (opcao) {
                 case 1:// insere elemento na lista
-                    int elemento = Integer
-                            .parseInt(JOptionPane.showInputDialog("Digite o elemento a ser inserido na lista:"));
-                    IntNoSimples novoNo = new IntNoSimples(elemento);
-                    lista.insereNo_fim(novoNo);
-                    JOptionPane.showMessageDialog(null, "Elemento inserido na lista!");
-                    break;
+                int elemento = Integer.parseInt(JOptionPane.showInputDialog("Digite o elemento a ser inserido na lista:"));
+                int posicao = Integer.parseInt(JOptionPane.showInputDialog("""
+                        Em qual posição deseja inserir o elemento?
+                        1 - Início
+                        2 - Meio
+                        3 - Fim"""));
+            
+                IntNoSimples novoNo = new IntNoSimples(elemento);
+            
+                switch (posicao) {
+                    case 1: // Inserir no início
+                        lista.insereNo_inicio(novoNo); //  // Cria um novo nó com o elemento fornecido pelo usuário
+                        JOptionPane.showMessageDialog(null, "Elemento inserido no início da lista!");
+                        break;
+                    case 2: // Inserir no meio
+                        int posicaoMeio = Integer.parseInt(JOptionPane.showInputDialog("Digite a posição do elemento no meio da lista:")); // Solicita ao usuário a posição em que deseja inserir o elemento no meio da lista
+                        lista.insereNo_posicao(novoNo, posicaoMeio);  // Insere o novo nó na posição informada pelo usuário
+                        JOptionPane.showMessageDialog(null, "Elemento inserido no meio da lista!");// mostra que foi colocado no meio da lista
+                        break;
+                    case 3: // Inserir no fim
+                        lista.insereNo_fim(novoNo);
+                        JOptionPane.showMessageDialog(null, "Elemento inserido no fim da lista");
+                        break;
+                    default:
+                        JOptionPane.showMessageDialog(null, "opcao invlida!");
+                        break;
+                }
+            
+                break;
                 case 2:// remove elementos da lista
                     if (lista.numero_nos == 0) {
                         JOptionPane.showMessageDialog(null, "A lista esta vazia!");
@@ -35,13 +58,13 @@
                         JOptionPane.showMessageDialog(null, "A lista esta vazia!");
                     } else {
                         // Exibe o primeiro elemento da lista
-                        IntNoSimples primeiroNo = lista.primeiro;
+                        IntNoSimples primeiroNo = lista.primeiro; //  Armazena o primeiro elemento da lista na variável primeiroNo
                         JOptionPane.showMessageDialog(null,
                                 "Primeiro elemento da lista: Valor " + primeiroNo.valor + ", Posicao 0");
 
                         // Exibe o último elemento da lista
-                        IntNoSimples ultimoNo = lista.ultimo;
-                        int posicaoUltimo = lista.ContarNos() - 1;
+                        IntNoSimples ultimoNo = lista.ultimo; // Armazena o último elemento da lista na variável ultimoNo
+                        int posicaoUltimo = lista.ContarNos() - 1; //Calcula a posição do último elemento da lista, subtraindo 1 do total de nós na lista.
                         JOptionPane.showMessageDialog(null,
                                 "Ultimo elemento da lista: Valor " + ultimoNo.valor + ", Posicao " + posicaoUltimo);
                     }
@@ -92,4 +115,3 @@
                     JOptionPane.showMessageDialog(null, "Opcao invalida!");
             }
         } while (opcao != 0);
-    }
